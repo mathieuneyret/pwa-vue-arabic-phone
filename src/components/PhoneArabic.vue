@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 
-defineProps<{ msg: string }>()
+function playSpeechSynthesis() {
+  let utterance = new SpeechSynthesisUtterance("Hello world!");
+  speechSynthesis.speak(utterance);
+}
 
-const count = ref(0)
 </script>
 
 <template>
   <h1>Téléphone arabe</h1>
+  <button @click="playSpeechSynthesis"></button>
 </template>
 
 <style scoped>
