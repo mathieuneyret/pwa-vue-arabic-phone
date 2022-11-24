@@ -36,7 +36,15 @@ function playSpeechSynthesis() {
   recognition.onresult = function(event) {
     const resultEvent = event.results[0][0].transcript;
     const divResult = document.getElementById("result-voice")!;
-    divResult.innerHTML = resultEvent;
+    if (resultEvent.endsWith('quoi')) {
+      divResult.innerHTML = "feur";
+      const utterance = new SpeechSynthesisUtterance("feur");
+      speechSynthesis.speak(utterance);
+    } else {
+      divResult.innerHTML = resultEvent;
+      const utterance = new SpeechSynthesisUtterance(resultEvent);
+      speechSynthesis.speak(utterance);
+    }
     recognition.stop();
   }
 
