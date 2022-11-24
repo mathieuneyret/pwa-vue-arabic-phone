@@ -34,7 +34,7 @@ function playSpeechSynthesis() {
   recognition.onresult = function(event) {
     const resultEvent = event.results[0][0].transcript;
     const divResult = document.getElementById("result-voice")!;
-    const sentence = resultEvent.replaceAll("quoi", "feur").replaceAll("tu", "je");
+    const sentence = resultEvent.replaceAll("quoi", "feur").replaceAll("tu", "je").replaceAll("vas", "vais");
     const utterance = new SpeechSynthesisUtterance(sentence);
     speechSynthesis.speak(utterance);
     divResult.innerHTML = sentence;
