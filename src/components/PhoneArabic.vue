@@ -22,8 +22,6 @@ function playSpeechRandom() {
 } */
 
 function playSpeechSynthesis() {
-  const utterance = new SpeechSynthesisUtterance(text.value);
-  speechSynthesis.speak(utterance);
 
   const recognition = new webkitSpeechRecognition();
 //recognition.continuous = false;
@@ -36,15 +34,9 @@ function playSpeechSynthesis() {
   recognition.onresult = function(event) {
     const resultEvent = event.results[0][0].transcript;
     const divResult = document.getElementById("result-voice")!;
-    if (resultEvent.endsWith('quoi')) {
-      divResult.innerHTML = "feur";
-      const utterance = new SpeechSynthesisUtterance("feur");
-      speechSynthesis.speak(utterance);
-    } else {
-      divResult.innerHTML = resultEvent;
-      const utterance = new SpeechSynthesisUtterance(resultEvent);
-      speechSynthesis.speak(utterance);
-    }
+    const sentence = resultEvent.replaceAll("quoi", "feur").replaceAll("tu", "je");
+    const utterance = new SpeechSynthesisUtterance(sentence);
+    speechSynthesis.speak(utterance);
     recognition.stop();
   }
 
@@ -56,7 +48,6 @@ function playSpeechSynthesis() {
 <template>
   <h1>Téléphone arabe</h1>
   <form @submit.prevent="playSpeechSynthesis">
-    <input v-model="text" type="text" />
     <button type="submit">submit</button>
   </form>
   <div id="result-voice"></div>
