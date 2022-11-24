@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
+const text = ref("");
 
 function playSpeechSynthesis() {
-  let utterance = new SpeechSynthesisUtterance("Hello world!");
+  let utterance = new SpeechSynthesisUtterance(text.value);
   speechSynthesis.speak(utterance);
 }
 
@@ -9,7 +12,10 @@ function playSpeechSynthesis() {
 
 <template>
   <h1>Téléphone arabe</h1>
-  <button @click="playSpeechSynthesis"></button>
+  <form @submit.prevent="playSpeechSynthesis">
+    <input v-model="text" type="text" />
+    <button type="submit">submit</button>
+  </form>
 </template>
 
 <style scoped>
